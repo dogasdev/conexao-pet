@@ -44,7 +44,7 @@ public class AnuncioAnimal {
         }
 
         if (status == null) {
-            status = StatusAnuncio.DISPONIVEL;
+            status = StatusAnuncio.disponivel;
         }
     }
 
