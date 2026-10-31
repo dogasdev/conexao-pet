@@ -32,4 +32,16 @@ public class Animal {
     @Column(name = "porte", nullable = false)
     private Porte porte;
 
-}
+    // Ligação com o usuário que fez o anúncio
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario_responsavel", nullable = false)
+    private Usuario usuarioResponsavel;
+
+    // Getter e Setter
+    public Usuario getUsuarioResponsavel() {
+        return usuarioResponsavel;
+    }
+
+    public void setUsuarioResponsavel(Usuario usuarioResponsavel) {
+        this.usuarioResponsavel = usuarioResponsavel;
+    }}
