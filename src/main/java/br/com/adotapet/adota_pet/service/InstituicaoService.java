@@ -29,36 +29,24 @@ public class InstituicaoService {
     public void cadastrar(CadastroInstituicaoDTO dados) {
 
         if (instituicaoRepository.existsByCnpj(dados.getCnpj())) {
-            throw new IllegalArgumentException(
-                    "Este CNPJ já está cadastrado.");
+            throw new IllegalArgumentException("Este CNPJ já está cadastrado.");
         }
 
         if (usuarioRepository.existsByEmail(dados.getEmail())) {
-            throw new IllegalArgumentException(
-                    "Este e-mail já está cadastrado.");
+            throw new IllegalArgumentException("Este e-mail já está cadastrado.");
         }
 
         if (usuarioRepository.existsByUsername(dados.getUsername())) {
-            throw new IllegalArgumentException(
-                    "Este username já está cadastrado.");
+            throw new IllegalArgumentException("Este username já está cadastrado.");
         }
 
         if (usuarioRepository.existsByCpf(dados.getCpf())) {
-            throw new IllegalArgumentException(
-                    "Este CPF já está cadastrado.");
+            throw new IllegalArgumentException("Este CPF já está cadastrado.");
         }
 
-        Instituicao instituicao = new Instituicao();
-
-        instituicao.setNomeInstituicao(dados.getNomeInstituicao());
-        instituicao.setCnpj(dados.getCnpj());
-        instituicao.setRua(dados.getRua());
-        instituicao.setNumero(dados.getNumero());
-        instituicao.setBairro(dados.getBairro());
-        instituicao.setCep(dados.getCep());
-        instituicao.setCidade(dados.getCidade());
-
-        instituicao = instituicaoRepository.save(instituicao);
+        if(usuarioRepository.existsByTelefone(dados.getTelefone())){
+            throw new IllegalArgumentException("Este telefone já está cadastrado.");
+        }
 
         Usuario usuario = new Usuario();
 
@@ -70,8 +58,22 @@ public class InstituicaoService {
         usuario.setUsername(dados.getUsername());
         usuario.setEmail(dados.getEmail());
         usuario.setSenha(passwordEncoder.encode(dados.getSenha()));
-        usuario.setInstituicao(instituicao);
 
-        usuarioRepository.save(usuario);
+        usuario = usuarioRepository.save(usuario);
+
+        Instituicao instituicao = new Instituicao();
+
+        instituicao.setNomeInstituicao(dados.getNomeInstituicao());
+        instituicao.setCnpj(dados.getCnpj());
+        instituicao.setRua(dados.getRua());
+        instituicao.setNumero(dados.getNumero());
+        instituicao.setBairro(dados.getBairro());
+        instituicao.setCep(dados.getCep());
+        instituicao.setCidade(dados.getCidade());
+
+        instituicao.setUsuario(usuario);
+        System.out.println("CHEGOU ANTES DE SALVAR A INSTITUIÇÃO");
+        instituicaoRepository.save(instituicao);
+        System.out.println("INSTITUIÇÃO SALVA!");
     }
 }

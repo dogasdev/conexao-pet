@@ -2,8 +2,6 @@
 package br.com.adotapet.adota_pet.entity;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "instituicao")
@@ -14,7 +12,7 @@ public class Instituicao {
     @Column(name = "id_instituicao")
     private Integer id;
 
-    @Column(name = "nome_instituicao", nullable = false, length = 100)
+    @Column(name = "nome", nullable = false, length = 150)
     private String nomeInstituicao;
 
     @Column(name = "cnpj", nullable = false, unique = true, length = 14)
@@ -35,8 +33,9 @@ public class Instituicao {
     @Column(name = "cidade", nullable = false, length = 100)
     private String cidade;
 
-    @OneToMany(mappedBy = "instituicao")
-    private List<Usuario> usuarios = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name = "id_usuario", nullable = false, unique = true)
+    private Usuario usuario;
 
     public Instituicao() {
     }
@@ -105,11 +104,11 @@ public class Instituicao {
         this.cidade = cidade;
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarios;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

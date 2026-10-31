@@ -12,12 +12,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController {
+public class AuthRegisterController {
 
     private final UsuarioService usuarioService;
     private final InstituicaoService instituicaoService;
 
-    public AuthController(
+    public AuthRegisterController(
             UsuarioService usuarioService,
             InstituicaoService instituicaoService) {
         this.usuarioService = usuarioService;

@@ -6,6 +6,7 @@ import br.com.adotapet.adota_pet.repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import br.com.adotapet.adota_pet.dto.LoginDTO;
 
 @Service
 public class UsuarioService {
@@ -24,18 +25,19 @@ public class UsuarioService {
     public Usuario cadastrar(CadastroUsuarioDTO dados) {
 
         if (usuarioRepository.existsByEmail(dados.getEmail())) {
-            throw new IllegalArgumentException(
-                    "Este e-mail já está cadastrado.");
+            throw new IllegalArgumentException("Este e-mail já está cadastrado.");
         }
 
         if (usuarioRepository.existsByUsername(dados.getUsername())) {
-            throw new IllegalArgumentException(
-                    "Este username já está cadastrado.");
+            throw new IllegalArgumentException("Este username já está cadastrado.");
         }
 
         if (usuarioRepository.existsByCpf(dados.getCpf())) {
-            throw new IllegalArgumentException(
-                    "Este CPF já está cadastrado.");
+            throw new IllegalArgumentException("Este CPF já está cadastrado.");
+        }
+
+        if (usuarioRepository.existsByTelefone(dados.getTelefone())) {
+            throw new IllegalArgumentException("Este telefone já está cadastrado.");
         }
 
         Usuario usuario = new Usuario();
@@ -50,5 +52,18 @@ public class UsuarioService {
         usuario.setCidade(dados.getCidade());
 
         return usuarioRepository.save(usuario);
+    }
+
+    public Usuario login(LoginDTO dados) {
+
+        Usuario usuario = usuarioRepository.findByEmail(dados.getIdentificador())
+                .or(() -> usuarioRepository.findByUsername(dados.getIdentificador()))
+                .orElseThrow(() -> new IllegalArgumentException("Usuário ou senha inválidos."));
+
+        if (!passwordEncoder.matches(dados.getSenha(), usuario.getSenha())) {
+            throw new IllegalArgumentException("Usuário ou senha inválidos.");
+        }
+
+        return usuario;
     }
 }

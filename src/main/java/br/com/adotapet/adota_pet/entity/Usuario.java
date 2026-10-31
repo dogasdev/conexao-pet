@@ -15,19 +15,19 @@ public class Usuario {
     @Column(name = "username", nullable = false, unique = true, length = 50)
     private String username;
 
-    @Column(name = "email", nullable = false, unique = true, length = 100)
+    @Column(name = "email", nullable = false, unique = true, length = 255)
     private String email;
 
     @Column(name = "senha", nullable = false)
     private String senha;
 
-    @Column(name = "telefone", length = 20)
+    @Column(name = "telefone", nullable = false, unique = true, length = 15)
     private String telefone;
 
     @Column(name = "foto", length = 255)
     private String foto;
 
-    @Column(name = "nome", nullable = false, length = 50)
+    @Column(name = "nome", nullable = false, length = 80)
     private String nome;
 
     @Column(name = "sobrenome", nullable = false, length = 100)
@@ -38,10 +38,6 @@ public class Usuario {
 
     @Column(name = "cidade", nullable = false, length = 100)
     private String cidade;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "id_instituicao", nullable = true)
-    private Instituicao instituicao;
 
     public Usuario() {
     }
@@ -126,13 +122,5 @@ public class Usuario {
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
-    }
-
-    public Instituicao getInstituicao() {
-        return instituicao;
-    }
-
-    public void setInstituicao(Instituicao instituicao) {
-        this.instituicao = instituicao;
     }
 }

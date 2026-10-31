@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface AnuncioAnimalRepository
-        extends JpaRepository<AnuncioAnimal, Integer> {
+public interface AnuncioAnimalRepository extends JpaRepository<AnuncioAnimal, Integer> {
 
     List<AnuncioAnimal> findByStatus(StatusAnuncio status);
+
 }

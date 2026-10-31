@@ -13,8 +13,7 @@ public class AnuncioAnimal {
     @Column(name = "id_anuncio")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_animal", nullable = false)
+    @OneToOne(mappedBy = "anuncio")
     private Animal animal;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -24,7 +23,7 @@ public class AnuncioAnimal {
     @Column(name = "descricao", nullable = false, columnDefinition = "TEXT")
     private String descricao;
 
-    @Column(name = "foto_animal", length = 255)
+    @Column(name = "foto_animal", nullable = false, length = 255)
     private String fotoAnimal;
 
     @Column(name = "data_publicacao", nullable = false, updatable = false)
@@ -44,7 +43,7 @@ public class AnuncioAnimal {
         }
 
         if (status == null) {
-            status = StatusAnuncio.disponivel;
+            status = StatusAnuncio.disponível;
         }
     }
 
