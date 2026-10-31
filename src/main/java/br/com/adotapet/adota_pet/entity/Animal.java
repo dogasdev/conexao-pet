@@ -44,4 +44,5 @@ public class Animal {
 
     public void setUsuarioResponsavel(Usuario usuarioResponsavel) {
         this.usuarioResponsavel = usuarioResponsavel;
-    }}
+    }
+}
