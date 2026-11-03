@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.http.HttpMethod;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -43,17 +44,12 @@ public class SecurityConfig {
 
         http.csrf(csrf -> csrf.disable());
 
-        http.sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        );
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        http.authorizeHttpRequests(auth ->
-                auth.requestMatchers("/api/teste").authenticated().anyRequest().permitAll()
-        );
+        http.authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/anuncios/**").permitAll().anyRequest().authenticated());
 
-        http.oauth2ResourceServer(oauth2 ->
-                oauth2.jwt(jwt -> {})
-        );
+        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> {}));
 
         return http.build();
     }

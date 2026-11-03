@@ -25,8 +25,7 @@ public class AuthRegisterController {
     }
 
     @PostMapping("/cadastro/usuario")
-    public ResponseEntity<Map<String, String>> cadastrarUsuario(
-            @RequestBody CadastroUsuarioDTO dados) {
+    public ResponseEntity<Map<String, String>> cadastrarUsuario(@RequestBody CadastroUsuarioDTO dados) {
 
         try {
             usuarioService.cadastrar(dados);
