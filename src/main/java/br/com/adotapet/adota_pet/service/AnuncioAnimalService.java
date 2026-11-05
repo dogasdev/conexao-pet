@@ -118,4 +118,20 @@ public class AnuncioAnimalService {
 
         return respostas;
     }
+    public DetalhesAnuncioDTO buscarPorId(Integer id) {
+        // Aqui ele busca no banco. Se não achar, podemos lançar um erro.
+        var anuncio = anuncioAnimalRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Anúncio não encontrado"));
+
+        return new DetalhesAnuncioDTO(
+                anuncio.getId(),
+                anuncio.getNome(),
+                anuncio.getIdade(),
+                anuncio.getEspecie(),
+                anuncio.getSexo(),
+                anuncio.getPorte(),
+                anuncio.getUsuarioResponsavel().getNome(), // Puxa o nome de quem cadastrou
+                anuncio.getCidade()
+        );
+    }
 }

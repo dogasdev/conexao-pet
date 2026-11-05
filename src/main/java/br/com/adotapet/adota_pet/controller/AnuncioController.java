@@ -28,4 +28,9 @@ public class AnuncioController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(anuncio);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<DetalhesAnuncioDTO> visualizarAnuncio(@PathVariable Integer id) {
+        DetalhesAnuncioDTO detalhes = anuncioAnimalService.buscarPorId(id);
+        return ResponseEntity.ok(detalhes);
+    }
 }
