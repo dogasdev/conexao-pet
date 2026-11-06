@@ -1,20 +1,41 @@
 package br.com.adotapet.adota_pet.dto;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import br.com.adotapet.adota_pet.enums.Especie;
 import br.com.adotapet.adota_pet.enums.Porte;
 import br.com.adotapet.adota_pet.enums.Sexo;
 import br.com.adotapet.adota_pet.enums.UnidadeIdade;
 
 public class CriarAnuncioDTO {
+
+    @NotBlank
     private String nome;
+
+    @NotNull
+    @Min(0)
     private Integer idade;
+
+    @NotNull
     private UnidadeIdade unidadeIdade;
+
+    @NotNull
     private Boolean idadeAproximada;
+
+    @NotNull
     private Especie especie;
+
+    @NotNull
     private Sexo sexo;
+
+    @NotNull
     private Porte porte;
 
+    @NotBlank
     private String descricao;
+
+    @NotBlank
     private String fotoAnimal;
 
     public CriarAnuncioDTO() {
