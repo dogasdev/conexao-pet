@@ -26,22 +26,16 @@ public class AnuncioController {
     public ResponseEntity<AnuncioCriadoDTO> criarAnuncio(@Valid @RequestBody CriarAnuncioDTO dados, @AuthenticationPrincipal Jwt jwt) {
 
         Integer idUsuario = Integer.valueOf(jwt.getSubject());
-        AnuncioCriadoDTO anuncio = anuncioAnimalService.criarAnuncio(dados, idUsuario
-        );
+        AnuncioCriadoDTO anuncio = anuncioAnimalService.criarAnuncio(dados, idUsuario);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(anuncio);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<AnuncioCriadoDTO> editarAnuncio(
-            @PathVariable Integer id,
-            @Valid @RequestBody CriarAnuncioDTO dados,
-            @AuthenticationPrincipal Jwt jwt) {
+    public ResponseEntity<AnuncioCriadoDTO> editarAnuncio(@PathVariable Integer id, @Valid @RequestBody CriarAnuncioDTO dados, @AuthenticationPrincipal Jwt jwt) {
 
         Integer idUsuario = Integer.valueOf(jwt.getSubject());
 
-        AnuncioCriadoDTO anuncio = anuncioAnimalService.editarAnuncio(
-                id, dados, idUsuario
-        );
+        AnuncioCriadoDTO anuncio = anuncioAnimalService.editarAnuncio(id, dados, idUsuario);
 
         return ResponseEntity.ok(anuncio);
     }
@@ -53,10 +47,28 @@ public class AnuncioController {
 
     @GetMapping
     public ResponseEntity<List<AnuncioCriadoDTO>> listarAnunciosDisponiveis() {
-        List<AnuncioCriadoDTO> anuncios =
-                anuncioAnimalService.listarAnunciosDisponiveis();
+        List<AnuncioCriadoDTO> anuncios = anuncioAnimalService.listarAnunciosDisponiveis();
 
         return ResponseEntity.ok(anuncios);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirAnuncio(@PathVariable Integer id, @AuthenticationPrincipal Jwt jwt) {
+
+        Integer idUsuario = Integer.valueOf(jwt.getSubject());
+
+        anuncioAnimalService.excluirAnuncio(id, idUsuario);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}/adotar")
+    public ResponseEntity<Void> marcarComoAdotado(@PathVariable Integer id, @AuthenticationPrincipal Jwt jwt) {
+
+        Integer idUsuario = Integer.valueOf(jwt.getSubject());
+
+        anuncioAnimalService.marcarComoAdotado(id, idUsuario);
+
+        return ResponseEntity.noContent().build();
+    }
 }

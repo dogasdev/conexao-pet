@@ -1,8 +1,14 @@
+
 package br.com.adotapet.adota_pet.dto;
+
+import jakarta.validation.constraints.NotBlank;
 
 public class LoginDTO {
 
+    @NotBlank
     private String identificador;
+
+    @NotBlank
     private String senha;
 
     public LoginDTO() {

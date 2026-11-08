@@ -14,8 +14,7 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> tratarErrosDeValidacao(
-            MethodArgumentNotValidException ex) {
+    public ResponseEntity<Map<String, String>> tratarErrosDeValidacao(MethodArgumentNotValidException ex) {
 
         Map<String, String> erros = new HashMap<>();
 
@@ -24,5 +23,19 @@ public class GlobalExceptionHandler {
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erros);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> tratarErroDeArgumento(
+            IllegalArgumentException ex) {
+
+        Map<String, String> erro = new HashMap<>();
+        erro.put("erro", ex.getMessage());
+
+        HttpStatus status = ex.getMessage().contains("permissão")
+                ? HttpStatus.FORBIDDEN
+                : HttpStatus.BAD_REQUEST;
+
+        return ResponseEntity.status(status).body(erro);
     }
 }

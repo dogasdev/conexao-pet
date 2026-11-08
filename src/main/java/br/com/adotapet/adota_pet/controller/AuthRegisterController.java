@@ -1,9 +1,11 @@
+
 package br.com.adotapet.adota_pet.controller;
 
 import br.com.adotapet.adota_pet.dto.CadastroInstituicaoDTO;
 import br.com.adotapet.adota_pet.dto.CadastroUsuarioDTO;
 import br.com.adotapet.adota_pet.service.InstituicaoService;
 import br.com.adotapet.adota_pet.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +22,14 @@ public class AuthRegisterController {
     public AuthRegisterController(
             UsuarioService usuarioService,
             InstituicaoService instituicaoService) {
+
         this.usuarioService = usuarioService;
         this.instituicaoService = instituicaoService;
     }
 
     @PostMapping("/cadastro/usuario")
-    public ResponseEntity<Map<String, String>> cadastrarUsuario(@RequestBody CadastroUsuarioDTO dados) {
+    public ResponseEntity<Map<String, String>> cadastrarUsuario(
+            @Valid @RequestBody CadastroUsuarioDTO dados) {
 
         try {
             usuarioService.cadastrar(dados);
@@ -44,15 +48,13 @@ public class AuthRegisterController {
 
     @PostMapping("/cadastro/instituicao")
     public ResponseEntity<Map<String, String>> cadastrarInstituicao(
-            @RequestBody CadastroInstituicaoDTO dados) {
+            @Valid @RequestBody CadastroInstituicaoDTO dados) {
 
         try {
             instituicaoService.cadastrar(dados);
 
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(Map.of(
-                            "mensagem",
-                            "Instituição cadastrada com sucesso!"
+                    .body(Map.of("mensagem", "Instituição cadastrada com sucesso!"
                     ));
 
         } catch (IllegalArgumentException e) {

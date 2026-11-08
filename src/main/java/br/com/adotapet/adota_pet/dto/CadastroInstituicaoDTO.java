@@ -1,25 +1,55 @@
+
 package br.com.adotapet.adota_pet.dto;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 public class CadastroInstituicaoDTO {
 
     // Dados da instituição
+    @NotBlank
     private String nomeInstituicao;
+
+    @NotBlank
     private String cnpj;
+
+    @NotBlank
     private String rua;
+
+    @NotBlank
     private String numero;
+
+    @NotBlank
     private String bairro;
+
+    @NotBlank
     private String cep;
+
+    @NotBlank
     private String cidade;
 
-    // Dados da pessoa responsável pela conta
+    // Dados da pessoa responsável
+    @NotBlank
     private String nome;
+
+    @NotBlank
     private String sobrenome;
+
+    @NotBlank
     private String cpf;
+
+    @NotBlank
     private String telefone;
 
     // Dados de acesso
+    @NotBlank
     private String username;
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
     private String senha;
 
     public CadastroInstituicaoDTO() {

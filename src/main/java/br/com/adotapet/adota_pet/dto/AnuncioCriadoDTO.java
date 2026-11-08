@@ -5,6 +5,7 @@ import br.com.adotapet.adota_pet.enums.Porte;
 import br.com.adotapet.adota_pet.enums.Sexo;
 import br.com.adotapet.adota_pet.enums.StatusAnuncio;
 import br.com.adotapet.adota_pet.enums.UnidadeIdade;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 

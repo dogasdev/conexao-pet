@@ -14,9 +14,7 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(
-            UsuarioRepository usuarioRepository,
-            PasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -59,10 +57,6 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findByEmail(dados.getIdentificador())
                 .or(() -> usuarioRepository.findByUsername(dados.getIdentificador()))
                 .orElseThrow(() -> new IllegalArgumentException("Usuário ou senha inválidos."));
-
-        System.out.println("USUARIO ENCONTRADO: " + usuario.getUsername());
-        System.out.println("SENHA CONFERE: " +
-                passwordEncoder.matches(dados.getSenha(), usuario.getSenha()));
 
         if (!passwordEncoder.matches(dados.getSenha(), usuario.getSenha())) {
             throw new IllegalArgumentException("Usuário ou senha inválidos.");

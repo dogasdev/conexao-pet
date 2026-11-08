@@ -10,21 +10,22 @@ import java.util.List;
 
 @Service
 public class AnimalService {
+
     private final AnimalRepository animalRepository;
 
     public AnimalService(AnimalRepository animalRepository) {
         this.animalRepository = animalRepository;
     }
 
-    public Animal salvarAnimal(Animal animal){
+    public Animal salvarAnimal(Animal animal) {
         return animalRepository.save(animal);
     }
 
-    public List<Animal> listarAnimais(){
+    public List<Animal> listarAnimais() {
         return animalRepository.findAll();
     }
 
-    public Animal buscarPorId(Integer id){
+    public Animal buscarPorId(Integer id) {
         return animalRepository.findById(id).orElse(null);
     }
 

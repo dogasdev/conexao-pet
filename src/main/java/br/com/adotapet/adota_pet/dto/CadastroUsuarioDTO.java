@@ -1,14 +1,40 @@
+
 package br.com.adotapet.adota_pet.dto;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class CadastroUsuarioDTO {
 
+    @NotBlank
     private String username;
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
     private String senha;
+
+    @NotBlank
+    @Size(max = 15)
     private String telefone;
+
+    @NotBlank
+    @Size(max = 80)
     private String nome;
+
+    @NotBlank
+    @Size(max = 100)
     private String sobrenome;
+
+    @NotBlank
+    @Size(min = 11, max = 11)
     private String cpf;
+
+    @NotBlank
+    @Size(max = 100)
     private String cidade;
 
     public CadastroUsuarioDTO() {

@@ -1,3 +1,4 @@
+
 package br.com.adotapet.adota_pet.controller;
 
 import br.com.adotapet.adota_pet.dto.LoginDTO;
@@ -5,6 +6,7 @@ import br.com.adotapet.adota_pet.dto.LoginResponseDTO;
 import br.com.adotapet.adota_pet.entity.Usuario;
 import br.com.adotapet.adota_pet.service.JwtService;
 import br.com.adotapet.adota_pet.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +19,15 @@ public class AuthLoginController {
 
     public AuthLoginController(
             UsuarioService usuarioService,
-            JwtService jwtService
-    ) {
+            JwtService jwtService) {
+
         this.usuarioService = usuarioService;
         this.jwtService = jwtService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginDTO dados) {
+    public ResponseEntity<LoginResponseDTO> login(
+            @Valid @RequestBody LoginDTO dados) {
 
         try {
             Usuario usuario = usuarioService.login(dados);

@@ -13,7 +13,7 @@ public class AnuncioAnimal {
     @Column(name = "id_anuncio")
     private Integer id;
 
-    @OneToOne(mappedBy = "anuncio")
+    @OneToOne(mappedBy = "anuncio", cascade = CascadeType.REMOVE)
     private Animal animal;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

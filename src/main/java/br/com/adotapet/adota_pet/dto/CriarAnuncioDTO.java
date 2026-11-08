@@ -7,10 +7,12 @@ import br.com.adotapet.adota_pet.enums.Especie;
 import br.com.adotapet.adota_pet.enums.Porte;
 import br.com.adotapet.adota_pet.enums.Sexo;
 import br.com.adotapet.adota_pet.enums.UnidadeIdade;
+import jakarta.validation.constraints.Size;
 
 public class CriarAnuncioDTO {
 
     @NotBlank
+    @Size(max = 60)
     private String nome;
 
     @NotNull
@@ -36,6 +38,7 @@ public class CriarAnuncioDTO {
     private String descricao;
 
     @NotBlank
+    @Size(max = 255)
     private String fotoAnimal;
 
     public CriarAnuncioDTO() {
