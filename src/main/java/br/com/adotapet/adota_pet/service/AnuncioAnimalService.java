@@ -95,7 +95,7 @@
         public List<AnuncioCriadoDTO> listarAnunciosDisponiveis() {
 
             List<AnuncioAnimal> anuncios =
-                    anuncioAnimalRepository.findByStatus(StatusAnuncio.disponível);
+                    anuncioAnimalRepository.findByStatus(StatusAnuncio.disponivel);
 
             List<AnuncioCriadoDTO> respostas = new ArrayList<>();
 
@@ -170,7 +170,7 @@
                         "Você não tem permissão para editar este anúncio.");
             }
 
-            if (anuncio.getStatus() != StatusAnuncio.disponível) {
+            if (anuncio.getStatus() != StatusAnuncio.disponivel) {
                 throw new IllegalArgumentException(
                         "Não é possível editar um anúncio que já foi adotado.");
             }
