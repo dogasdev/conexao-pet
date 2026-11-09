@@ -1,0 +1,13 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {filterAnimals,emptyFilters,ageLabel} from './search.js';
+import {suggestCities,resolveCity} from './cities.js';
+const data=[{nome:'Luna',status:'disponivel',cidade:'Fortaleza',uf:'CE',especie:'gato',sexo:'femea',porte:'pequeno'},{nome:'Thor',status:'disponivel',cidade:'Caucaia',uf:'CE',especie:'cachorro',sexo:'macho',porte:'grande'},{nome:'Mel',status:'adotado',cidade:'Fortaleza',uf:'CE',especie:'gato',sexo:'femea',porte:'pequeno'}];
+test('filtra cidade com estado e critérios combinados',()=>assert.equal(filterAnimals(data,{...emptyFilters,cidade:'Fortaleza, CE',especie:'gato'}).length,1));
+test('cidade sem anúncios retorna vazio',()=>assert.deepEqual(filterAnimals(data,{...emptyFilters,cidade:'São Paulo, SP'}),[]));
+test('cidade homônima em outro estado não retorna anúncios',()=>assert.deepEqual(filterAnimals(data,{...emptyFilters,cidade:'Fortaleza, RS'}),[]));
+test('limpar filtros retorna apenas disponíveis',()=>assert.equal(filterAnimals(data,emptyFilters).length,2));
+test('sugestões ignoram acentos e caixa e priorizam nome exato',()=>assert.equal(suggestCities('SAO PAULO')[0].nome,'São Paulo'));
+test('busca cobre cidades fora da amostra',()=>{for(const name of ['Manaus','Recife','Porto Alegre','São Miguel dos Campos'])assert.equal(resolveCity(name).nome,name)});
+test('nomes ambíguos precisam de UF',()=>{assert.equal(resolveCity('Bom Jesus'),null);assert.equal(resolveCity('Bom Jesus, PI').uf,'PI')});
+test('não inventa cidades e limita sugestões',()=>{assert.deepEqual(suggestCities('xyzabc123'),[]);assert.equal(resolveCity('xyzabc123'),null);assert.ok(suggestCities('s').length<=8)});
+test('idade preserva meses',()=>{assert.equal(ageLabel(18),'1 ano e 6 meses');assert.equal(ageLabel(1),'1 mês')});
