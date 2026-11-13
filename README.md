@@ -47,6 +47,8 @@ Cadastro de usuários e instituições.
 - Java JDK 25
 - MySQL
 - Git
+- Spring
+  
 
 ### 2. Clonar o repositório
 ```bash
