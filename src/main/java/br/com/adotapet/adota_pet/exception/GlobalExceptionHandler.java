@@ -32,9 +32,15 @@ public class GlobalExceptionHandler {
         Map<String, String> erro = new HashMap<>();
         erro.put("erro", ex.getMessage());
 
-        HttpStatus status = ex.getMessage().contains("permissão")
-                ? HttpStatus.FORBIDDEN
-                : HttpStatus.BAD_REQUEST;
+        HttpStatus status;
+
+        if (ex.getMessage().contains("permissão")) {
+            status = HttpStatus.FORBIDDEN;
+        } else if (ex.getMessage().contains("não encontrado")) {
+            status = HttpStatus.NOT_FOUND;
+        } else {
+            status = HttpStatus.BAD_REQUEST;
+        }
 
         return ResponseEntity.status(status).body(erro);
     }
