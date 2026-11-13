@@ -34,7 +34,7 @@ Cadastro de usuários e instituições.
 - Edição e exclusão de anúncios pelo responsável.
 - Controle de acesso aos anúncios de cada usuário
 
-Arquitetura do projeto
+## Arquitetura do projeto
 - Controller: recebe e processa as requisições HTTP.
 - Service: concentra as regras de negócio da aplicação.
 - Repository: responsável pelo acesso e pela persistência dos dados.
